@@ -1,43 +1,84 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/bc1P3rEF)
-# Zadanie: Gry Wojenne
+# 🛡️ War Game Simulation (Java OOP Project)
 
-| Hard deadline   | Punkty     |
-|------------------|:-----------|
-| 15.06.2025 23:00 |    15      |
-
---- 
-
-W grze biorą udział dwaj generałowie ze swoimi armiami. Każdy generał posiada armię żołnierzy oraz worek ze złotymi monetami.
-
-Żołnierze posiadają:
-- stopień wojskowy: szeregowy 
-    (wartość: 1), kapral (wartość: 2), kapitan (wartość: 3) i major (wartość: 4)
-- doświadczenie
-- siła żołnierza jest obliczana jako iloczyn jego stopnia i doświadczenia
-- żołnierz ginie, gdy jego doświadczenie = 0
-- jeżeli doświadczenie osiągnie pięciokrotność wartości stopnia, 
-awansuje na kolejny stopień oraz jego doświadczenie = 1.
-
-Generałowie posiadają początkową (ograniczoną) liczbę złotych monet.
-Celem generała jest posiadanie największej i najlepiej wyszkolonej armii. 
-
-Generał może:
-- zarządzić manewry swojej armii (lub jej części), które powiększają doświadczenie uczestniczących w nich żołnierzy o 1; manewry kosztują: za każdego żołnierza biorącego udział w manewrach generał płaci wartość (liczbę monet) przypisaną do stopnia wojskowego
-- zaatakować drugiego generała; wygrywa generał, który posiada armię o większej łącznej sile; przegrany przekazuje 10% swojego złota wygrywającemu; każdy żołnierz z armii przegrywającej traci 1 punkt doświadczenia, a z wygrywającej zyskuje jeden; w przypadku remisu każdy generał musi rozstrzelać jednego swojego losowo wybranego żołnierza
-- kupić żołnierzy; koszt żołnierza = 10 *(jego stopień); zakupieni żołnierze posiadają doświadczenie = 1
-
-Walczącym generałom przygląda się sekretarz prezydenta. Pisze on raporty dotyczące obu armii. Opisuje wszelkie akcje podjęte przez generałów oraz zmiany poszczególnych żołnierzy.
-Generał wraz ze swoimi zasobami powinien mieć możliwość zapisu i odczytu swojego stanu na / z dysku.
+This is a console-based simulation game in Java, featuring two generals who manage armies of soldiers, conduct training, purchase units, and fight strategic battles. The project showcases strong object-oriented design, polymorphism, design patterns, and file persistence.
 
 ---
 
-W zadaniu oceniane będą:
-- Tworzenie klas: 	10%
-- Kompozycja: 		10%
-- Dziedziczenie: 	20%
-- Implementacje odpowiednich wzorców projektowych: 30%
-- Implementacja opisanych algorytmów:		 20%
-- Polimorfizm: 		10%
+## 🚀 Features
 
-### Uwaga
-Projekt powinien również zawierać odpowiednie testy jednostkowe do implementowanej funkcjonalności.
+- 👑 Generals manage armies and gold reserves  
+- 🪖 Soldiers have ranks (Private → Corporal → Captain → Major), gain experience, and promote  
+- ⚔️ Battles between generals based on total army strength  
+- 🔄 Experience system with rank progression and death by zero experience  
+- 🏋️ Training (maneuvers) costs gold and grants experience  
+- 💸 Purchasing soldiers (standard or elite) with randomized names  
+- 📝 Secretary logs every action: promotions, training, losses, victories, loot  
+- 💾 Save/load general state with army and resources via serialization  
+- ✅ Unit tested with JUnit 5 for combat logic and rank progression  
+
+---
+
+## 🔍 Example Log Output
+
+[2025-06-16T13:30:14.528] [ZAKUP] Jan bought soldier [1] Marta - PRIVATE (exp: 1)
+[2025-06-16T13:30:14.544] [DOŚWIADCZENIE] Jan: soldier 1 Marta increased experience from 1 to 2
+[2025-06-16T13:30:14.552] [BITWA] Battle between Jan (power 6) and Paweł (power 8)
+[2025-06-16T13:30:14.555] [WYNIK] Winner: Paweł
+[2025-06-16T13:30:14.571] [ŁUP] Loot: 6 coins
+
+---
+
+## 🧱 OOP Design
+
+- **AbstractSoldier** – shared logic for all soldier types  
+- **Soldier / EliteSoldier** – polymorphic behavior and strength calculations  
+- **General** – manages army, resources, and interactions  
+- **Secretary / Report** – logs tagged event history with timestamps  
+- **BattleService & TrainingService** – clean separation of game logic using Service pattern  
+- **ArmyPersistence** – state saving/loading from file  
+
+---
+
+## 🧪 Testing
+
+Tested core logic with:
+- Promotion after experience threshold
+- Soldier elimination upon reaching 0 experience
+- Battle outcome and loot exchange
+- Training cost and effect
+
+---
+
+## 🛠️ Technologies
+
+- Java 17
+- JUnit 5
+- Object-Oriented Programming (OOP)
+- CLI-based simulation
+- Serialization (Java I/O)
+
+---
+
+## 🎓 Educational Context
+
+This project was developed as part of my advanced object-oriented programming coursework. The design emphasizes clean architecture, testability, polymorphism, and real-time game-like state updates through logging and services.
+
+---
+
+## 📁 File Structure
+
+├── models/
+│ ├── AbstractSoldier.java
+│ ├── Soldier.java / EliteSoldier.java
+│ ├── General.java
+│ ├── Secretary.java / Report.java
+├── services/
+│ ├── BattleService.java
+│ ├── TrainingService.java
+│ ├── ArmyPersistence.java
+├── test/
+│ ├── GeneralTest.java
+│ ├── BattleServiceTest.java
+├── main/
+│ ├── Main.java
+
